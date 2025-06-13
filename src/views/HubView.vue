@@ -1,6 +1,6 @@
 <template>
     <TopBar/>
-    <component :is="CurrentView" :nickname="nickName"></component>
+    <component :is="CurrentView"></component>
     <TabBar/>
 </template>
 
@@ -15,11 +15,11 @@ import { useSharedStore } from '../store/shared';
 import { computed, markRaw, watch } from 'vue';
 
 export default {
-    computed: {
-        nickName() {
-            return this.$route.params.nickname;
-        }
-    },
+    // computed: {
+    //     nickName() {
+    //         return this.$route.params.nickname;
+    //     }
+    // },
     data(){
         return {
             CurrentView: null

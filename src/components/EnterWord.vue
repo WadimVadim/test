@@ -40,21 +40,22 @@ export default {
 
 <style scoped>
   .back-container{
-        position: fixed;
+        position: relative;
         top: 2vh;
-        left: 15vh;
+        left: 17vh;
     }
 
     .rectangle-enter {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        /* justify-content: center; */
+        text-align: center;
         width: 40vh;
         height: 30vh;
         background-color: rgb(33,36,48);
         border-radius: 3vh;
-        gap: 2vh;
+        gap: 1vh;
     }
 
     .button-word {

@@ -4,7 +4,7 @@
     <form @submit.prevent="handleRegister">
       <div class="inputGroup">
         <input placeholder="Введите логин" type="text" id="login" v-model="newUser.Nickname" />
-        <input placeholder="Введите пароль" type="password" id="password" v-model="newUser.PasswordHash" />
+        <input placeholder="Введите пароль" type="password" id="password" v-model="newUser.Password" />
       </div>
       <button class="button" type="submit">Зарегистрироваться</button>
     </form>
@@ -13,7 +13,7 @@
 </template>
   
 <script>
-import axios from 'axios'
+import { apiClient } from '../main.js'
 
 export default {
   data() {
@@ -21,24 +21,21 @@ export default {
       et: "",
       newUser: {
           Nickname: '',
-          PasswordHash: ''
+          Password: ''
       }
     }
   },
   methods: {
-    handleRegister() {
-      this.$axios.post('https://localhost:7174/users', JSON.stringify(this.newUser), {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(response => {
-          this.$showMessage("Успешная регистрация!");
-        })
-        .catch(error => {
-          this.et = error;
-          console.error('Ошибка при запросе:', error);
-        });
+    async handleRegister() {
+      try {
+        await apiClient.post('/register', this.newUser);
+      
+        this.$router.push('/');
+        this.$showMessage("Успешная регистрация!");
+      } catch (error) {
+        console.log("Ошибка при запросе: ", error);
+        this.$showMessage("Не удалось зарегистрироваться.");
+      }
     }
   }
 }

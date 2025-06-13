@@ -70,7 +70,7 @@ export default {
         bottom: 0;
         left: 0;
         background-color: rgb(33, 36, 48);
-        z-index: 1000;
+        z-index: 3;
         display: flex;
         justify-content: center;
         align-items: center;

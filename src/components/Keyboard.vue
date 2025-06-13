@@ -122,6 +122,7 @@ export default {
   },
   methods: {
     stateClass(char, state) {
+      console.log("TESSSSST");
       this.keys.forEach((row) => {
         const foundKey = row.find((key) => key.char === char);
         if (foundKey && foundKey.state != "correct") {
@@ -130,6 +131,7 @@ export default {
       });
     },
     PressKey(selectKey){
+      // console.log(selectKey);
         this.reKey.some(obj => {
           if (Object.hasOwn(obj, selectKey)){
             selectKey = obj[selectKey];

@@ -10,7 +10,7 @@
 
     <Transition name="slide">
         <div v-if="EnterWordVisible" class="blurred-overlay">
-            <EnterWord class="overlay" @close="EnterWordVisible = false"/>
+            <EnterWord @close="EnterWordVisible = false"/>
         </div>
     </Transition>
 </template>
@@ -96,19 +96,16 @@ name: "Home",
         fill: white;
     }
 
-    .overlay {
-        position: absolute;
-        z-index: 10;
-    }
-
     .blurred-overlay {
         position: fixed;
         display: flex;
-        /* align-items: center; */
-        top: 15vh;
+        align-items: center;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         justify-content: center;
-        z-index: 2;
-        text-align: center;
+        z-index: 10;
         background-color: rgba(0, 0, 0, 0.5); 
         backdrop-filter: blur(10px);
     }

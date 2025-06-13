@@ -8,6 +8,22 @@ import router from './router'
 const app = createApp(App)
 const pinia = createPinia()
 
+export const apiClient = axios.create({
+  baseURL: 'http://localhost:5146', 
+  headers: {
+      'Content-Type': 'application/json'
+    },
+  withCredentials: true
+});
+
+export const apiWords = axios.create({
+  baseURL: 'http://localhost:5147', 
+  headers: {
+      'Content-Type': 'application/json'
+    },
+  withCredentials: true
+});
+
 app.config.globalProperties.$showMessage = function(msg) {
     alert(msg);
   };  

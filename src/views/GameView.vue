@@ -18,12 +18,13 @@
 import WordRow from '../components/WordRow.vue'
 import GameBoard from '../components/GameBoard.vue'
 import Keyboard from '../components/Keyboard.vue'
+import { apiWords } from '../main.js'
 
 export default {
     mounted(){
         const activeIndex = this.words.findIndex(el => el.active == true);
         this.$refs.WordRowRefs[activeIndex].setActive();
-
+        this.GetRandomWord();
     },
     data(){
         return {
@@ -36,14 +37,14 @@ export default {
                 {active: false},
                 {active: false}
             ],
-            correctWord: "ОКЕАН",
+            correctWord: "",
             keyState: {char: '', state: 'entry'},
             states: {}
         }
     },
     methods: {
         BackClick(){
-            this.$router.push("/hub/test");
+            this.$router.push("/hub");
         },
         removeActive(letterIndex){
             this.words[letterIndex].active = false; 
@@ -57,11 +58,16 @@ export default {
             const activeIndex = this.words.findIndex(el => el.active == true);
 
             if (event.key === 'Enter') {
-                if ((this.words.length-1 > activeIndex) && this.$refs.WordRowRefs[activeIndex].filledWord())
+                console.log("BBBBBBBBBBBBBBBBBBB");
+                if (this.$refs.WordRowRefs[activeIndex].filledWord())
                 {
-                    if (this.$refs.WordRowRefs[activeIndex].checkWord(this.correctWord) == false){
+                    if (this.words.length-1 > activeIndex && this.$refs.WordRowRefs[activeIndex].checkWord(this.correctWord) == false){
                         this.removeActive(activeIndex);
                         this.setActive(activeIndex+1);
+                    }
+                    else if (this.$refs.WordRowRefs[activeIndex].checkWord(this.correctWord) == false)
+                    {
+                        this.removeActive(activeIndex);
                     }
                     else{
                         console.log("WIN");
@@ -74,6 +80,17 @@ export default {
         keyUpdate(char, state){
             this.$refs.keyboardRefs.stateClass(char, state);
         },
+        async GetRandomWord(){
+            try {
+                var response = await apiWords.get('/Words/getrandom', this.user);
+                this.correctWord = response["data"];
+                console.log(this.correctWord);
+
+            } catch (error) {
+                console.log("Ошибка при запросе: ", error);
+                this.$showMessage("Ошибка.");
+            }
+        }
         
     },
     components: {
